@@ -1,0 +1,3 @@
+pywemo
+click
+colorlog
