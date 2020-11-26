@@ -34,7 +34,7 @@ python -m pip install -r requirements.txt
 
 ## Developing
 
-Be sure to also install the dev dependencies to the virtual environment from the `requirements.txt` file.
+Be sure to also install the dev dependencies to the virtual environment from the `requirements.dev.txt` file.
 
 ## Usage
 
