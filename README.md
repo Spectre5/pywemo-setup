@@ -32,20 +32,20 @@ py -3 -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-## External Requirements (for setup only)
+## External Requirements (for Wemo device setup only)
 
 ### OpenSSL
 
 OpenSSL is used to encrypt the password by the pywemo library (AES only).
 It should be installed and available on the path via `openssl`.
-If connecting to an open network (not recommended), OpenSSL is not required.
+This is not required if connecting to an open network (not recommended).
 
-### NetworkManager (only used for --setup-all option)
+### NetworkManager (only required when using --setup-all option)
 
-The command line interface to NetworkManager, `nmcli`, is used with the --setup-all option to search for and connect to Wemo device access points.
+The command line interface to NetworkManager, `nmcli`, is used with the `--setup-all` option to search for and connect to Wemo device access points.
 This use of this option requires that `nmcli` is available on the path.
-This functionality exists in other OSes, but has not been implented and tested.
-For example, `airport` in macOS, `netsh` in Windows should be able to achieve this, as well as other Linux tools for installations without NetworkManager.
+This functionality exists in other OSes, but has not been implemented and tested.
+For example, `airport` in macOS and `netsh` in Windows should be able to achieve this, as well as other Linux tools for installations without NetworkManager.
 
 ## Usage
 
