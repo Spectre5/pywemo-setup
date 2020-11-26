@@ -1,0 +1,8 @@
+[MASTER]
+
+disable=
+  too-many-branches,
+
+[FORMAT]
+
+expected-line-ending-format=LF

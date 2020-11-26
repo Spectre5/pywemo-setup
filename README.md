@@ -32,10 +32,29 @@ py -3 -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-## Developing
+## External Requirements (for setup only)
 
-Be sure to also install the dev dependencies to the virtual environment from the `requirements.dev.txt` file.
+- OpenSSL should be installed and available on the path to use this script for device setup on a network using encryption, as OpenSSL is used to encrypt the password (AES only supported in this script).
+- nmcli (network manager cli) is used (only if --setup-all flag is used) to find and connect to Wemo access points.
 
 ## Usage
 
 Coming soon
+
+## Tested Devices
+
+This script has been tested and confirmed working with the follow devices and firmware:
+
+| Device Type      | Market | FirmwareVersion                         |
+| :--------------- | :----: | :-------------------------------------- |
+| Socket (Mini)    | US     | WeMo_WW_2.00.11452.PVT-OWRT-SNSV2       |
+| Lightswitch      | US     | WeMo_WW_2.00.11408.PVT-OWRT-LS          |
+| Dimmer           | US     | WeMo_WW_2.00.11453.PVT-OWRT-Dimmer      |
+| Insight Switch   | UK     | WeMo_WW_2.00.11483.PVT-OWRT-Insight     |
+| Switch           | UK     | WeMo_WW_2.00.11408.PVT-OWRT-SNS         |
+| Maker            | UK     | WeMo_WW_2.00.11423.PVT-OWRT-Maker       |
+
+## Developing
+
+Be sure to also install the dev dependencies to the virtual environment from the `requirements.dev.txt` file.
+All code should be formatted using black with the provide pyproject.toml and cleanly pass pylint and pycodestyle
