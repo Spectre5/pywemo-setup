@@ -34,8 +34,18 @@ python -m pip install -r requirements.txt
 
 ## External Requirements (for setup only)
 
-- OpenSSL should be installed and available on the path to use this script for device setup on a network using encryption, as OpenSSL is used to encrypt the password (AES only supported in this script).
-- nmcli (network manager cli) is used (only if --setup-all flag is used) to find and connect to Wemo access points.
+### OpenSSL
+
+OpenSSL is used to encrypt the password by the pywemo library (AES only).
+It should be installed and available on the path via `openssl`.
+If connecting to an open network (not recommended), OpenSSL is not required.
+
+### NetworkManager (only used for --setup-all option)
+
+The command line interface to NetworkManager, `nmcli`, is used with the --setup-all option to search for and connect to Wemo device access points.
+This use of this option requires that `nmcli` is available on the path.
+This functionality exists in other OSes, but has not been implented and tested.
+For example, `airport` in macOS, `netsh` in Windows should be able to achieve this, as well as other Linux tools for installations without NetworkManager.
 
 ## Usage
 
