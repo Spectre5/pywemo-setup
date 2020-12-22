@@ -55,8 +55,8 @@ Coming soon
 ### Warning
 
 Beware when using the `--reset-all` option when connected to multiple networks, e.g. if hardwired to a local lan and wirelessly connected to another network.
-The `pywemo` discovery will find devices on all connected networks and attempt to reset them all.
-The script does show a list of the devices to be reset and ask for confirmation, so reviewing this list is recommended.
+The `pywemo` discovery will find devices on all connected networks and this script when then attempt to reset them all.
+This script shows a list of the devices to be reset and asks for confirmation, so reviewing this list is recommended.
 
 ## Tips
 
@@ -83,4 +83,4 @@ This script has been tested and confirmed working with the follow devices and fi
 ## Developing
 
 Be sure to also install the dev dependencies to the virtual environment from the `requirements.dev.txt` file.
-All code should be formatted using black with the provide pyproject.toml and cleanly pass pylint and pycodestyle
+All code should be formatted using black with the provided pyproject.toml and cleanly pass pylint and pycodestyle
