@@ -2,6 +2,7 @@
 
 disable=
   too-many-branches,
+  too-many-arguments,
 
 [FORMAT]
 

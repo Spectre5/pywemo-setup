@@ -21,7 +21,7 @@ Linux:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
 Windows:
@@ -31,6 +31,8 @@ py -3 -m venv .venv
 .venv/Scripts/activate.bat
 python -m pip install -r requirements.txt
 ```
+
+The virtual environment should then be activated when running this script.
 
 ## External Requirements (for Wemo device setup only)
 
@@ -43,13 +45,27 @@ This is not required if connecting to an open network (not recommended).
 ### NetworkManager (only required when using --setup-all option)
 
 The command line interface to NetworkManager, `nmcli`, is used with the `--setup-all` option to search for and connect to Wemo device access points.
-This use of this option requires that `nmcli` is available on the path.
 This functionality exists in other OSes, but has not been implemented and tested.
 For example, `airport` in macOS and `netsh` in Windows should be able to achieve this, as well as other Linux tools for installations without NetworkManager.
 
 ## Usage
 
 Coming soon
+
+### Warning
+
+Beware when using the `--reset-all` option when connected to multiple networks, e.g. if hardwired to a local lan and wirelessly connected to another network.
+The `pywemo` discovery will find devices on all connected networks and attempt to reset them all.
+The script does show a list of the devices to be reset and ask for confirmation, so reviewing this list is recommended.
+
+## Tips
+
+- You can use `-vvv` to enable all debug log message and send the log to file.
+This can be useful to associate the friendly names with each device if you intend to set them up again.
+- After reset, a device will take up to 90 seconds to reset, so wait a minute or two before trying to setup a freshly reset device.
+- Wemo devices sometimes have trouble connecting to an access point that uses the same name (SSID) for the 2.4GHz and 5GHz signals.
+If you experience issues, try disabling the 5GHz signal while setting up the Wemo device(S), and then re-enabling it upon completion.
+- If having issues with reset or setup, be sure to enable verbose output to see debug logs.
 
 ## Tested Devices
 
