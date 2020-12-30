@@ -1,3 +1,6 @@
+# Specific files for this project
+wemo_names.csv
+
 # Hide sublime text stuff
 *.sublime-project
 *.sublime-workspace
