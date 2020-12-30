@@ -24,6 +24,7 @@ information.
 # -----------------------------------------------------------------------------
 # ---[ Imports ]---------------------------------------------------------------
 # -----------------------------------------------------------------------------
+import csv
 import time
 import shutil
 import pathlib
@@ -357,6 +358,68 @@ def wemo_discover(verbose: int, info: int) -> List[Device]:
     """Discover and print information about devices on current network(s)."""
     setup_logger(verbose)
     discover_and_log_devices(verbose=info + 1)
+
+
+# -----------------------------------------------------------------------------
+@cli.command(name='rename', context_settings=CONTEXT_SETTINGS)
+@click.option(
+    '-v',
+    '--verbose',
+    count=True,
+    help='''Print debug messages.  Use -v to enable debug messages from this
+    script, -vv to also enable debug messages from all upstream libraries,
+    and -vvv to also output the log to a file.''',
+)
+@click.option(
+    '-p',
+    '--path',
+    default='wemo_names.csv',
+    type=click.Path(exists=True, dir_okay=False),
+    help='''Name of a csv file to read to get mapping for device names.  The
+    file should have exactly 3 columns in the order of "UDN", "IP", "Friendly
+    Name".  The first row is skipped (header) and then subsequent rows are
+    used.  The UDN will be checked first, then the IP (so UDN has higher
+    precedence).  A blank UDN will be skipped, thus just the IP would be
+    used.''',
+)
+def wemo_rename(verbose: int, path: str) -> None:
+    """Mass rename devices from a CSV file."""
+    setup_logger(verbose)
+    udn_to_name = {}
+    ip_to_name = {}
+    with open(path, 'r', newline='') as fin:
+        fin.readline()  # header
+        for row in csv.reader(fin):
+            if not row or len(row) < 3 or row[0].startswith('#'):
+                # skip blank lines, lines without at least 3 items, and lines
+                # that start with a # (ignoring whitespace)
+                continue
+            udn, ip, name = [i.strip() for i in row]
+            if not name:
+                # skip the row if no name is provided
+                continue
+            if udn:
+                udn_to_name[udn] = name
+            if ip:
+                ip_to_name[ip] = name
+
+    devices = discover_and_log_devices()
+    for device in devices:
+        udn = device._config.get_UDN()  # pylint: disable=protected-access
+        ip = device.host
+        # set by ip first and then UDN second, so UDN has higher precedence
+        name = ip_to_name.get(ip, '')
+        name = udn_to_name.get(udn, name)
+        if name:
+            LOG.info('changing %s name to: %s', device, name)
+            device.basicevent.ChangeFriendlyName(FriendlyName=name)
+        else:
+            LOG.info(
+                'no name found for device %s with UDN="%s" and IP="%s"',
+                device,
+                udn,
+                ip,
+            )
 
 
 # -----------------------------------------------------------------------------
